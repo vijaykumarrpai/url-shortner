@@ -10,6 +10,20 @@ const urlShortnerSchema = new Schema({
         type: String
     },
     tags: {
-
+        type: [String],
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    hashedUrl: {
+        type: String
     }
 })
+
+const Url = mongoose.model('urls', urlShortnerSchema);
+
+module.exports = {
+    Url
+}
