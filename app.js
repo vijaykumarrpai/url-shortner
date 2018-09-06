@@ -6,11 +6,11 @@ const _ = require('lodash');
 
 const {objectId} = require('mongodb');
 
-const mongoose = require('./config/db.js');
+const mongoose = require('./config/db');
 
-const urls = require('./models/url.js')
+const urls = require('./models/url')
 
-const urlRouter = require('./routes/urls.js');
+const urlRouter = require('./routes/urls');
 
 const app = express();
 

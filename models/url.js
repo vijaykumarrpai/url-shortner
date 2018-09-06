@@ -3,27 +3,46 @@ mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 
 const urlShortnerSchema = new Schema({
-    title: {
-        type: String
+    Title: {
+        type: String,
+        required: true
     },
-    originalUrl: {
-        type: String
+    OriginalUrl: {
+        type: String,
+        required: true
     },
-    tags: {
+    Tags: {
         type: [String],
         required: true
     },
-    createdAt: {
+    CreatedAt: {
         type: Date,
         default: Date.now
     },
-    hashedUrl: {
+    HashedUrl: {
         type: String
+    },
+    click: {
+        clickedDateAndTime: {
+            type: String
+        },
+        userIpAddress: {
+            type: String
+        },
+        browser: {
+            type: String
+        },
+        os: {
+            type: String
+        },
+        device: {
+            type: String
+        }
     }
 })
 
-const Url = mongoose.model('urls', urlShortnerSchema);
+const urls = mongoose.model('urls', urlShortnerSchema);
 
 module.exports = {
-    Url
+    urls
 }
