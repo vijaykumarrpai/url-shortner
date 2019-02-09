@@ -8,7 +8,7 @@ const {objectId} = require('mongodb');
  
 const mongoose = require('./config/db')  
 
-const urls = require('./models/url');
+const Url = require('./models/url');
 
 const urlRouter = require('./routes/urls'); 
 
@@ -17,7 +17,7 @@ const port = 3000;
 
 app.use(bodyParser.json()); 
 
-app.use('/urls', urlRouter)  
+app.use('/Url', urlRouter)  
 
 app.use((req, res, next) => {
     console.log(`${req.method}-${req.url}-${req.ip}-${new Date()}`);
@@ -25,5 +25,5 @@ app.use((req, res, next) => {
 })
 
 app.listen(port, () => {
-    console.log('Listeninig to port', port);
+    console.log('Listening to port', port);
 })

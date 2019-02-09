@@ -1,53 +1,66 @@
 const mongoose = require('mongoose'); 
+const sh = require('shorthash');
 mongoose.Promise = global.Promise;
 
 const Schema = mongoose.Schema; 
 
-urlSchema = new Schema({
+const urlSchema = new Schema({
 
-    Title:{
+    title: {
         type:String,
-        required:true
+        required:true,
+        min: 5
     },
 
-    OriginalUrl:{
+    originalUrl: {
         type:String,
-        required:true
+        required:true,
+        minlength: 10
     },
 
-    Tags:{ 
-        type:[String] ,
-        required:true},
-
-    CreatedAt:{type:Date, default:Date.now},
-
-    HashedUrl:{
-        type:String
+    tags: { 
+        type: [String],
+        required: true,
+        minlength: 1
     },
-
-    click:{
-        clickedDateAndTime:{
-        type:String
+    hashedUrl: {
+        type: String
     },
-    userIpAddress:{
-        type:String
+    createdAt:{
+        type: Date, 
+        default: Date.now
     },
-    browser:{
-        type:String
-    },
-    os:{
-        type:String
-    },
-    device:{
-        type:String
+    clicks: [
+        {
+            clickedDateAndTime: {
+            type: Date,
+            default: Date.now
+        },
+        ipAddress: {
+            type: String
+        },
+        browserName: {
+            type: String
+        },
+        osType: {
+            type: String
+        },
+        deviceType: {
+            type: String
+        }
     }
-}
-    
+    ]
+});
 
-})
+urlSchema.pre('save', function(next) {
+    let url = this;
+    url.hashedUrl = sh.unique(url.originalUrl);
+    url.createdAt = Date.now();
+    next();
+});
 
-const urls = mongoose.model('urls', urlSchema); 
+const Url = mongoose.model('Url', urlSchema); 
 
 module.exports = {                            
-    urls 
-}
+    Url 
+};
